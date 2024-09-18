@@ -1,7 +1,10 @@
 import React from 'react'
 import Pro16 from './Assets/16 Pro.jpg'
-import LaptopImg from './Assets/Lenovo slim7x.jpg'  // Replace with actual laptop image path
-import PhoneImg from './Assets/Iphone 15 pro.jpg'    // Replace with actual phone image path
+import LaptopImg from './Assets/Lenovo slim7x.jpg' 
+import PhoneImg from './Assets/Iphone 15 pro.jpg'  
+import BestSeller1 from './Assets/I14.jpg' 
+import BestSeller2 from './Assets/Lenovo V15 G4.jpg'
+import BestSeller3 from './Assets/Iphone 15 pro.jpg'
 import './Home.css'
 
 const Home = () => {
@@ -67,6 +70,46 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <section>
+        <h2 className='text-center mt-5 mb-5'>Best Sellers</h2>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-4 mb-4'>
+              <div className='card'>
+                <img src={BestSeller1} className='card-img-top' alt='Best Seller 1'/>
+                <div className='card-body text-center'>
+                  <h5 className='card-title'>Product 1</h5>
+                  <p className='card-text'>$999.99</p>
+                  <button className='btn btn-dark'>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+            <div className='col-md-4 mb-4'>
+              <div className='card'>
+                <img src={BestSeller2} className='card-img-top' alt='Best Seller 2'/>
+                <div className='card-body text-center'>
+                  <h5 className='card-title'>Product 2</h5>
+                  <p className='card-text'>$799.99</p>
+                  <button className='btn btn-dark'>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+            <div className='col-md-4 mb-4'>
+              <div className='card'>
+                <img src={BestSeller3} className='card-img-top' alt='Best Seller 3'/>
+                <div className='card-body text-center'>
+                  <h5 className='card-title'>Product 3</h5>
+                  <p className='card-text'>$699.99</p>
+                  <button className='btn btn-dark'>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   )
 }
