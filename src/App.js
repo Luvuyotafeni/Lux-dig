@@ -7,6 +7,8 @@ import Products from './components/Products/Products'
 import Promotions from './components/Promotions/Promotions'
 import Enquire from './components/Enquire/Enquire'
 import Cart from './components/Cart/Cart'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (

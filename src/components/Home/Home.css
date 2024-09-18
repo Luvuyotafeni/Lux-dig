@@ -1,0 +1,35 @@
+.f_flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+  }
+  
+  .imgHome {
+    height: 400px;
+    width: 500px;
+    display: flex;           /* Add flex to center the image */
+    justify-content: center; /* Centers the image horizontally */
+    align-items: center;     /* Centers the image vertically */
+  }
+  
+  .imgHome img {
+    width: 80%;
+  }
+  
+  .home_info {
+    width: 500px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    align-items: center;     /* Centers content horizontally */
+    text-align: center;      /* Centers the text */
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center; /* Centers buttons horizontally */
+  }
+  
