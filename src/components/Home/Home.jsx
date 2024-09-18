@@ -39,7 +39,7 @@ const Home = () => {
         <div className='container'>
           <div className='row'>
             <div className="col-md-6">
-              <img src='' alt='about image'/>
+              <img src='' alt='about Us'/>
             </div>
             <div className="col-md-6">
               {/* Add your about info here */}
@@ -121,21 +121,21 @@ const Home = () => {
           <Carousel>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="d-block"
                 src={iphone}
                 alt="iphone"
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="d-block"
                 src={lenovo}
                 alt="lenovo"
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="d-block"
                 src={hp}
                 alt="hp"
               />
