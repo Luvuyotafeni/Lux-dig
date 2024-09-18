@@ -33,3 +33,12 @@
     justify-content: center; /* Centers buttons horizontally */
   }
   
+  .category_img{
+    height:300px;
+    width: auto;
+  }
+
+  .category_imgp{
+    height:300px;
+    width: 300px;
+  }

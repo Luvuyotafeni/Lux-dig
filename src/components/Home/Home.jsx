@@ -1,36 +1,72 @@
 import React from 'react'
 import Pro16 from './Assets/16 Pro.jpg'
+import LaptopImg from './Assets/Lenovo slim7x.jpg'  // Replace with actual laptop image path
+import PhoneImg from './Assets/Iphone 15 pro.jpg'    // Replace with actual phone image path
 import './Home.css'
 
 const Home = () => {
   return (
     <div>
-        <section>
-            <div className='container mt-5 mb-5'>
-                <div className='f_flex'>
-                    <div className="home_info">
-                        <div>
-                            <h3>Luxurous Digitals</h3>
-                            <h5>Shop with us, shop digitally</h5>
-                        </div>
-                        <div className='buttons'>
-                            <button className='btn btn-dark'>Shop all</button>
-                            <button className='ml-2'>Contact Us</button>
-                        </div>
-                    </div>
-                    <div className='imgHome'>
-                        <img src={Pro16} alt='iPhone 16'/>
-                    </div>
+      <section>
+        <div className='container mt-5 mb-5'>
+          <div className='row align-items-center'>
+            <div className="col-md-6 home_info text-center">
+              <div>
+                <h3>Luxurious Digitals</h3>
+                <h5>Shop with us, shop digitally</h5>
+              </div>
+              <div className='buttons'>
+                <button className='btn btn-dark'>Shop all</button>
+                <button className='btn btn-secondary ml-2'>Contact Us</button>
+              </div>
+            </div>
+            <div className='col-md-6 imgHome text-center'>
+              <img src={Pro16} alt='iPhone 16'/>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className='text-center'>About Us</h2>
+        <div className='container'>
+          <div className='row'>
+            <div className="col-md-6">
+              <img src='' alt='about image'/>
+            </div>
+            <div className="col-md-6">
+              {/* Add your about info here */}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className='text-center mt-5 mb-5'>Our Collections</h2>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-6 mb-4'>
+              <div className='card'>
+                <img src={LaptopImg} className='category_img' alt='Laptop'/>
+                <div className='card-body text-center'>
+                  <h5 className='card-title'>Laptop</h5>
+                  <button className='btn btn-dark'>Shop Category</button>
                 </div>
+              </div>
             </div>
-        </section>
-        <section>
-            <h2 className='text-center'>About Us</h2>
-            <div className='container f_flex'>
-                <div></div>
-                <div></div>
+
+            <div className='col-md-6 mb-4'>
+              <div className='card'>
+                <img src={PhoneImg} className='category_imgp' alt='Phone'/>
+                <div className='card-body text-center'>
+                  <h5 className='card-title'>Phone</h5>
+                  <button className='btn btn-dark'>Shop Category</button>
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
