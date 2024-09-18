@@ -1,10 +1,14 @@
 import React from 'react'
 import Pro16 from './Assets/16 Pro.jpg'
-import LaptopImg from './Assets/Lenovo slim7x.jpg' 
-import PhoneImg from './Assets/Iphone 15 pro.jpg'  
-import BestSeller1 from './Assets/I14.jpg' 
+import LaptopImg from './Assets/Lenovo slim7x.jpg'
+import PhoneImg from './Assets/Iphone 15 pro.jpg'
+import BestSeller1 from './Assets/I14.jpg'
 import BestSeller2 from './Assets/Lenovo V15 G4.jpg'
 import BestSeller3 from './Assets/Iphone 15 pro.jpg'
+import iphone from './Assets/iPhone logo.jpg'
+import lenovo from './Assets/Lenovo.png'
+import hp from './Assets/hp logo.png'
+import { Carousel } from 'react-bootstrap'
 import './Home.css'
 
 const Home = () => {
@@ -70,6 +74,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       <section>
         <h2 className='text-center mt-5 mb-5'>Best Sellers</h2>
         <div className='container'>
@@ -110,8 +115,37 @@ const Home = () => {
         </div>
       </section>
 
-    </div>
-  )
-}
+      <section>
+        <h2 className='text-center mt-5 mb-5'>Our Brands</h2>
+        <div className='container'>
+          <Carousel>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={iphone}
+                alt="iphone"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={lenovo}
+                alt="lenovo"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src={hp}
+                alt="hp"
+              />
+            </Carousel.Item>
+          </Carousel>
+        </div>
+      </section>
 
-export default Home
+    </div>      
+  );
+};
+
+export default Home;
