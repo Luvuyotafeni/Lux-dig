@@ -8,7 +8,7 @@ const About = () => {
           <div className='row'>
             <div className='col-md-4'>
               <div className='card middle-card'>
-                <img src=''/>
+                <i class='bx bx-time-five'></i>
                 <div className='card-body'>
                   <p>24hrs</p>
                 </div>
@@ -16,7 +16,7 @@ const About = () => {
             </div>
             <div className='col-md-4'>
               <div className='card middle-card'>
-                <img src=''/>
+                <i class='bx bx-globe' ></i>
                 <div className='card-body'>
                   <p>Nationwide Delivery</p>
                 </div>
@@ -24,7 +24,7 @@ const About = () => {
             </div>
             <div className='col-md-4'>
               <div className='card middle-card'>
-                <img src=''/>
+                <i class='bx bx-mobile-alt' ></i>
                 <div className='card-body'>
                   <p>Fully digital</p>
                 </div>
