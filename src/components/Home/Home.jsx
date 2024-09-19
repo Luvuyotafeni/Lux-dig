@@ -42,8 +42,16 @@ const Home = () => {
               <img src='' alt='about Us'/>
             </div>
             <div className="col-md-6">
-              {/* Add your about info here */}
-            </div>
+            Based in the vibrant city of Cape Town, South Africa, our digital company specializes 
+            in offering a wide range of premium laptops and iPhones, both new and used, 
+            to customers across the globe. We believe in the power of technology and its ability 
+            to transform lives, which is why we strive to provide only the best products that meet 
+            the highest standards of quality.
+          At the core of our business are values that define who we are: integrity, trust, responsibility,    
+          respect for time, and a deep commitment to our customers. Whether you’re shopping for the latest 
+                iPhone or a reliable laptop, we aim to make your online shopping experience as smooth 
+                and trustworthy as possible.
+            </div>  
           </div>
         </div>
       </section>
