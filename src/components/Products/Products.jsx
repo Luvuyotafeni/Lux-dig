@@ -6,15 +6,30 @@ import './Products.css'; // Import CSS for styling images
 
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
+  const [selectedIndex, setSelectedIndex] = useState(0); // State for selected image index in the carousel
 
   // Function to open modal with the selected product
   const handleShowModal = (product) => {
     setSelectedProduct(product); // Set the selected product to show its details in the modal
+    setSelectedIndex(0); // Reset the index to 0 when opening a new modal
   };
 
   // Function to close the modal
   const handleCloseModal = () => {
     setSelectedProduct(null); // Clear the selected product to hide the modal
+  };
+
+  // Handle carousel navigation
+  const handlePrev = () => {
+    setSelectedIndex((prevIndex) =>
+      prevIndex === 0 ? selectedProduct.gallery.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setSelectedIndex((prevIndex) =>
+      prevIndex === selectedProduct.gallery.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   return (
@@ -63,19 +78,29 @@ const Products = () => {
               </div>
               <div className="modal-body">
                 {/* Carousel for product images */}
-                <div className="carousel slide" data-ride="carousel">
+                <div
+                  id={`carousel-${selectedProduct.version}`}
+                  className="carousel slide"
+                  data-ride="carousel"
+                >
                   <div className="carousel-inner">
                     {selectedProduct.gallery.map((img, i) => (
-                      <div className={`carousel-item ${i === 0 ? 'active' : ''}`} key={i}>
-                        <img src={img} className="d-block" alt={`Slide ${i + 1}`} />
+                      <div
+                        className={`carousel-item ${i === selectedIndex ? 'active' : ''}`}
+                        key={i}
+                      >
+                        <img
+                          src={img}
+                          className="d-block"
+                          alt={`Slide ${i + 1}`}
+                        />
                       </div>
                     ))}
                   </div>
                   <a
                     className="carousel-control-prev"
-                    href="#"
                     role="button"
-                    data-slide="prev"
+                    onClick={handlePrev}
                   >
                     <span
                       className="carousel-control-prev-icon"
@@ -85,9 +110,8 @@ const Products = () => {
                   </a>
                   <a
                     className="carousel-control-next"
-                    href="#"
                     role="button"
-                    data-slide="next"
+                    onClick={handleNext}
                   >
                     <span
                       className="carousel-control-next-icon"
@@ -108,13 +132,13 @@ const Products = () => {
                 >
                   Add to Cart
                 </button>
-                {/* <button
+                <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleCloseModal}
                 >
                   Close
-                </button> */}
+                </button>
               </div>
             </div>
           </div>
