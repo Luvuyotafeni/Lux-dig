@@ -3,4 +3,7 @@
     height: auto;
     cursor: pointer;
   }
-  
+.carousel-item img {
+  width: 400px;
+  height: auto;
+}

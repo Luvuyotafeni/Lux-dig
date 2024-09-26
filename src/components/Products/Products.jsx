@@ -33,7 +33,7 @@ const Products = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">{model.version}</h5>
-                  <p className="card-text">Price: R {model.price}</p>
+                  <p className="card-text">Price: R{model.price}</p>
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@ const Products = () => {
                   <div className="carousel-inner">
                     {selectedProduct.gallery.map((img, i) => (
                       <div className={`carousel-item ${i === 0 ? 'active' : ''}`} key={i}>
-                        <img src={img} className="d-block w-100" alt={`Slide ${i + 1}`} />
+                        <img src={img} className="d-block" alt={`Slide ${i + 1}`} />
                       </div>
                     ))}
                   </div>
@@ -108,13 +108,13 @@ const Products = () => {
                 >
                   Add to Cart
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleCloseModal}
                 >
                   Close
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
