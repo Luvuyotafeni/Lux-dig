@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './LoginModal.css'
 
 const LoginModal = () => {
+  const [showSignUp, setShowSignUp] = useState(false);
+
   return (
     <>
       {/* LoginModal */}
@@ -29,13 +31,27 @@ const LoginModal = () => {
             </div>
             <div className='modal-footer'>
               <p className='text-center'>
-                Don't have an account?<button type='button' className='btn btn-link'></button>
+                Don't have an account?<button type='button' className='btn btn-link'>SignUp</button>
               </p>
             </div>
-          </div>
-          
+          </div>     
         </div>
       </div>
+      {/* Sign up modal decided to conditionally render it */}
+      {showSignUp &&(
+        <div className='modal fade show' role='dialog' style={{display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+          <div className='modal-dialog modal-dialog-centered'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <h5 className='modal-title'>Sign Up</h5>
+                <button type='button' className='close' aria-label='close' >
+                  <span aria-hidden='true'>&times;</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
