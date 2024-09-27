@@ -22,9 +22,7 @@ const LoginModal = () => {
           <div className='modal-content'>
             <div className='modal-header'>
               <h5 className='modal-title'>Log In</h5>
-              <button type='button' className='close' aria-label='close'>
-                <span aria-hidden='true'>&times;</span>
-              </button>            
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>           
             </div>
             <div className='modal-body'>
               <form>
@@ -54,9 +52,7 @@ const LoginModal = () => {
             <div className='modal-content'>
               <div className='modal-header'>
                 <h5 className='modal-title'>Sign Up</h5>
-                <button type='button' className='close' aria-label='close' onclick={handleCloseSignUp} >
-                  <span aria-hidden='true'>&times;</span>
-                </button>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseSignUp}></button>
               </div>
               <div className='modal-body'>
                 <form>
