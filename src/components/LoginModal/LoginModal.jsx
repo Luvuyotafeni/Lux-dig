@@ -3,6 +3,16 @@ import './LoginModal.css'
 
 const LoginModal = () => {
   const [showSignUp, setShowSignUp] = useState(false);
+ 
+  
+
+  const handleSignUpClick = () => {
+    setShowSignUp(true);
+  }
+
+  const handleCloseSignUp = () => {
+    setShowSignUp(false);
+  }
 
   return (
     <>
@@ -31,7 +41,7 @@ const LoginModal = () => {
             </div>
             <div className='modal-footer'>
               <p className='text-center'>
-                Don't have an account?<button type='button' className='btn btn-link'>SignUp</button>
+                Don't have an account?<button type='button' className='btn btn-link' onClick={handleSignUpClick}>SignUp</button>
               </p>
             </div>
           </div>     
@@ -44,7 +54,7 @@ const LoginModal = () => {
             <div className='modal-content'>
               <div className='modal-header'>
                 <h5 className='modal-title'>Sign Up</h5>
-                <button type='button' className='close' aria-label='close' >
+                <button type='button' className='close' aria-label='close' onclick={handleCloseSignUp} >
                   <span aria-hidden='true'>&times;</span>
                 </button>
               </div>
