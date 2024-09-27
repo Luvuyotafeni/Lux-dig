@@ -27,6 +27,11 @@ const LoginModal = () => {
                 <button type='submit' className='btn btn-primary btn-block'>Log In</button>
               </form>
             </div>
+            <div className='modal-footer'>
+              <p className='text-center'>
+                Don't have an account?<button type='button' className='btn btn-link'></button>
+              </p>
+            </div>
           </div>
           
         </div>
