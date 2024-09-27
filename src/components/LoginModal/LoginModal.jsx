@@ -48,6 +48,39 @@ const LoginModal = () => {
                   <span aria-hidden='true'>&times;</span>
                 </button>
               </div>
+              <div className='modal-body'>
+                <form>
+                  <div className='form-group'>
+                    <label>Name</label>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                  </div>
+                  <div className='form-group'>
+                    <label>Surname</label>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                  </div>
+                  <div className='form-group'>
+                    <label>Phone</label>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                  </div>
+                  <div className='form-group'>
+                    <label>Email</label>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                  </div>
+                  <div className='form-group'>
+                    <label>Confirm Email</label>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                  </div>
+                  <div className='form-group'>
+                    <label>Create password</label>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                  </div>
+                  <div className='form-group'>
+                    <label>Re-type password</label>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                  </div>
+                  <button type='submit' className='btn btn-primary btn-block'>Sign Up </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
