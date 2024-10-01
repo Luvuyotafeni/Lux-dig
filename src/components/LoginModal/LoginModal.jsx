@@ -3,15 +3,19 @@ import './LoginModal.css'
 
 const LoginModal = () => {
   const [showSignUp, setShowSignUp] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
  
-  
-
+  const handleCloseSignIn = () => {
+    setShowSignIn(false);
+  }
   const handleSignUpClick = () => {
     setShowSignUp(true);
+    setShowSignIn(false);
   }
 
   const handleCloseSignUp = () => {
     setShowSignUp(false);
+    setShowSignIn(true);
   }
 
   return (
@@ -22,7 +26,7 @@ const LoginModal = () => {
           <div className='modal-content'>
             <div className='modal-header'>
               <h5 className='modal-title'>Log In</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>           
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseSignIn}></button>           
             </div>
             <div className='modal-body'>
               <form>

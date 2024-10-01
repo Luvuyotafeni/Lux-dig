@@ -69,11 +69,12 @@ const Products = () => {
                 <h5 className="modal-title">{selectedProduct.version}</h5>
                 <button
                   type="button"
-                  className="close"
-                  aria-label="Close"
+                  className="btn-close"
+                   data-bs-dismiss="modal"
+                    aria-label="Close" 
                   onClick={handleCloseModal}
                 >
-                  <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true"></span>
                 </button>
               </div>
               <div className="modal-body">
