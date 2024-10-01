@@ -5,6 +5,12 @@ const LoginModal = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
  
+  const [name, setName] = useState()
+  const [surname, setSurname] = useState()
+  const [phone, setPhone]= useState()
+  const [email, setEmail] = useState()    
+  const [password, setPassword] = useState()
+  
   const handleCloseSignIn = () => {
     setShowSignIn(false);
   }
@@ -62,31 +68,36 @@ const LoginModal = () => {
                 <form>
                   <div className='form-group'>
                     <label>Name</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'
+                    onChange={(e) => setName(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Surname</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'
+                    onChange={(e) => setSurname(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Phone</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'
+                    onChange={(e) => setPhone(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Email</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='email' className='form-control' id='signupEmail' placeholder='enter email'
+                    onChange={(e) => setEmail(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Confirm Email</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='email' className='form-control' id='signupEmail' placeholder='enter email'/>
                   </div>
                   <div className='form-group'>
                     <label>Create password</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='password' className='form-control' id='signupEmail' placeholder='enter email'
+                    onChange={(e) => setPassword(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Re-type password</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='password' className='form-control' id='signupEmail' placeholder='enter email'/>
                   </div>
                   <button type='submit' className='btn btn-primary btn-block'>Sign Up </button>
                 </form>
