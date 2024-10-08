@@ -9,7 +9,7 @@ const Enquire = () => {
           <div className="card text-center">
             <div className="card-body">
               <h5 className="card-title">Phone Number</h5>
-              <p className="card-text">+27 123 456 789</p>
+              <p className="card-text">0792950603</p>
             </div>
           </div>
         </div>
@@ -25,7 +25,7 @@ const Enquire = () => {
           <div className="card text-center">
             <div className="card-body">
               <h5 className="card-title">Address</h5>
-              <p className="card-text">123 Street, City, Country</p>
+              <p className="card-text">13 Education Street, Belhar 8, Cape Town, 7493</p>
             </div>
           </div>
         </div>
