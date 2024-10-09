@@ -27,7 +27,7 @@ const LoginModal = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('', {name, surname, phone, email, password})
+    axios.post('http://localhost:3001/users', {name, surname, phone, email, password})
     .then(result => console.log(result))
     .catch(err => console.log(err))
   }
@@ -43,7 +43,7 @@ const LoginModal = () => {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseSignIn}></button>           
             </div>
             <div className='modal-body'>
-              <form onSubmit={handleSubmit}>
+              <form >
                 <div className='form-group'>
                   <label htmlfor='email'>Email address</label>
                   <input type='email' className='form-control' id='email' placeholder='e.g lux@gmail.com'></input>
@@ -73,7 +73,7 @@ const LoginModal = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseSignUp}></button>
               </div>
               <div className='modal-body'>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className='form-group'>
                     <label>Name</label>
                     <input type='text' className='form-control' id='signupEmail' placeholder='enter email'
