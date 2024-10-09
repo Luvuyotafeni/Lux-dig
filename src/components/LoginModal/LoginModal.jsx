@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import './LoginModal.css'
+import axios from 'axios'
 
 const LoginModal = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -22,6 +23,13 @@ const LoginModal = () => {
   const handleCloseSignUp = () => {
     setShowSignUp(false);
     setShowSignIn(true);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.post('', {name, surname, phone, email, password})
+    .then(result => console.log(result))
+    .catch(err => console.log(err))
   }
 
   return (
