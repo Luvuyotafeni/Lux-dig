@@ -43,7 +43,7 @@ const LoginModal = () => {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseSignIn}></button>           
             </div>
             <div className='modal-body'>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className='form-group'>
                   <label htmlfor='email'>Email address</label>
                   <input type='email' className='form-control' id='email' placeholder='e.g lux@gmail.com'></input>
