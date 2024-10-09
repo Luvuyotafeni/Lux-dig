@@ -50,7 +50,7 @@ const LoginModal = () => {
                 </div>
                 <div className='form-group'>
                   <label htmlFor='password'>Enter Password</label>
-                  <input type='password' className='password' id='password' placeholder='Enter password'/>
+                  <input type='password' className='form-control' id='password' placeholder='Enter password'/>
                 </div>
                 <button type='submit' className='btn btn-primary btn-block'>Log In</button>
               </form>
