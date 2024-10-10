@@ -8,6 +8,9 @@ const LoginModal = () => {
   const [showSignIn, setShowSignIn] = useState(false);
 
   const navigate = useNavigate()
+
+  const [loginEmail, setLoginEmail] = useState()
+  const [LoginPassword, setLoginPassword] = useState()
  
   const [name, setName] = useState()
   const [surname, setSurname] = useState()
@@ -39,13 +42,15 @@ const LoginModal = () => {
 
   const logInSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/users', {email:logInEmail , password:LogInPassword})
+    axios.post('http://localhost:3001/login', {email:loginEmail , password:LoginPassword})
     .then((response) => {
       console.log('log in sucessful', response);
-      navigate('/');
+      if(result.data === "Success"){
+        navigate('/');
+      }
     })
     .catch((error) => {
-      console.error('log in failed'error)
+      console.error('log in failed', error);
     })
   }
 
@@ -60,14 +65,14 @@ const LoginModal = () => {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseSignIn}></button>           
             </div>
             <div className='modal-body'>
-              <form >
+              <form onSubmit={logInSubmit}>
                 <div className='form-group'>
-                  <label htmlfor='email'>Email address</label>
-                  <input type='email' className='form-control' id='email' placeholder='e.g lux@gmail.com'></input>
+                  <label htmlfor='loginEmail'>Email address</label>
+                  <input type='email' className='form-control' id='email' placeholder='e.g lux@gmail.com' value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)}></input>
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='password'>Enter Password</label>
-                  <input type='password' className='form-control' id='password' placeholder='Enter password'/>
+                  <label htmlFor='loginPassword'>Enter Password</label>
+                  <input type='password' className='form-control' id='password' placeholder='Enter password' value={LoginPassword} onChange={(e) => setLoginPassword(e.target.value)}/>
                 </div>
                 <button type='submit' className='btn btn-primary btn-block'>Log In</button>
               </form>
