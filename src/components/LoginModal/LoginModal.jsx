@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 import './LoginModal.css'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom' 
 
 const LoginModal = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
+
+  const navigate = useNavigate()
  
   const [name, setName] = useState()
   const [surname, setSurname] = useState()
@@ -26,10 +29,24 @@ const LoginModal = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     axios.post('http://localhost:3001/users', {name, surname, phone, email, password})
-    .then(result => console.log(result))
+    .then((result) => { console.log(result)
+      navigate('/')
+    })
     .catch(err => console.log(err))
+  }
+
+  const logInSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:3001/users', {email:logInEmail , password:LogInPassword})
+    .then((response) => {
+      console.log('log in sucessful', response);
+      navigate('/');
+    })
+    .catch((error) => {
+      console.error('log in failed'error)
+    })
   }
 
   return (
@@ -76,17 +93,17 @@ const LoginModal = () => {
                 <form onSubmit={handleSubmit}>
                   <div className='form-group'>
                     <label>Name</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter name'
                     onChange={(e) => setName(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Surname</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter surname'
                     onChange={(e) => setSurname(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Phone</label>
-                    <input type='text' className='form-control' id='signupEmail' placeholder='enter email'
+                    <input type='text' className='form-control' id='signupEmail' placeholder='enter phone'
                     onChange={(e) => setPhone(e.target.value)}/>
                   </div>
                   <div className='form-group'>
@@ -96,16 +113,16 @@ const LoginModal = () => {
                   </div>
                   <div className='form-group'>
                     <label>Confirm Email</label>
-                    <input type='email' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='email' className='form-control' id='signupEmail' placeholder='confirm email'/>
                   </div>
                   <div className='form-group'>
                     <label>Create password</label>
-                    <input type='password' className='form-control' id='signupEmail' placeholder='enter email'
+                    <input type='password' className='form-control' id='signupEmail' placeholder='enter password'
                     onChange={(e) => setPassword(e.target.value)}/>
                   </div>
                   <div className='form-group'>
                     <label>Re-type password</label>
-                    <input type='password' className='form-control' id='signupEmail' placeholder='enter email'/>
+                    <input type='password' className='form-control' id='signupEmail' placeholder='confirm password'/>
                   </div>
                   <button type='submit' className='btn btn-primary btn-block'>Sign Up </button>
                 </form>
