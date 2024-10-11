@@ -45,7 +45,7 @@ const LoginModal = () => {
     axios.post('http://localhost:3001/login', {email:loginEmail , password:LoginPassword})
     .then((response) => {
       console.log('log in sucessful', response);
-      if(result.data === "Success"){
+      if(response.data === "Success"){
         navigate('/');
       }
     })
