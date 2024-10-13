@@ -34,28 +34,29 @@ const Products = () => {
     );
   };
 
-  // function to add the selected Item to the cart
-const handleAddToCart = () => {
-  const newItem = {
-    version: selectedProduct.version,
-    price: selectedProduct.price,
-    space: selectedProduct.space,
-    desc: selectedProduct.desc,
-    variant: selectedProduct.variants,
-    image: selectedProduct.gallery[selectedIndex],
+  const handleAddToCart = () => {
+    const newItem = {
+      version: selectedProduct.version,
+      price: selectedProduct.price,
+      space: selectedProduct.space,
+      desc: selectedProduct.desc,
+      variant: selectedProduct.variants,
+      image: selectedProduct.gallery[selectedIndex],
+    };
+  
+    // Retrieve the current cart from localStorage
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    // Add the new item to the existing cart
+    const updatedCart = [...existingCart, newItem];
+  
+    // Update the cart state and localStorage
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  
+    alert('Item added to cart');
   };
-
-  // Add the new item to the cart state
-  const updatedCart = [...cart, newItem];
-  setCart(updatedCart);
-
-  // Store the updated cart in localStorage
-  localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-  console.log('cart', updatedCart);
-
-  alert('Item added to cart');
-};
+  
 
 
    // delete from cart function
