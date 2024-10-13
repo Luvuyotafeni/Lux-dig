@@ -1,18 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-const Cart = ({cartItems, handleDeleteFromCart}) => {
+const Cart = ({ cartItems = [], onRemoveFromCart }) => {
   return (
-    <div className='container mt-4'>
-      <h2>Your Cart</h2>
+    <div className="container mt-4">
+      <h2>Shopping Cart</h2>
       {cartItems.length === 0 ? (
-        <h1>Your cart is empty</h1>
+        <p>Your cart is empty.</p>
       ) : (
-        <table className='table table-striped'>
+        <table className="table table-striped">
           <thead>
             <tr>
               <th>Image</th>
               <th>Version</th>
               <th>Price</th>
+              <th>Space</th>
+              <th>Available Colors</th>
               <th>Description</th>
               <th>Actions</th>
             </tr>
@@ -20,20 +22,20 @@ const Cart = ({cartItems, handleDeleteFromCart}) => {
           <tbody>
             {cartItems.map((item, index) => (
               <tr key={index}>
-                <td>
-                  <img src={item.image} alt={item.version} style={{width: '50px'}}/>
-                </td>
+                <td><img src={item.image} alt={item.version} style={{ width: '50px' }} /></td>
                 <td>{item.version}</td>
+                <td>R{item.price}</td>
+                <td>{(item.space || []).join(', ')}</td>
+                <td>{(item.variant || []).join(', ')}</td>
                 <td>{item.desc}</td>
-                <td><button className='btn btn-danger' onClick={() => handleDeleteFromCart(index)}> delete</button></td>
+                <td><button className="btn btn-danger" onClick={() => onRemoveFromCart(index)}>Remove</button></td>
               </tr>
             ))}
           </tbody>
         </table>
-      ) }
-
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;

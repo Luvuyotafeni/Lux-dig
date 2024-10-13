@@ -174,7 +174,7 @@ const Products = () => {
         </div>
       )}
       {/* Render the Cart Component and pass the cart data */}
-      <Cart cartItems={cart} handleDeleteFromCart={handleDeleteFromCart} />
+      <Cart cartItems={cart} onRemoveFromCart={handleDeleteFromCart} />
     </div>
   );
 };

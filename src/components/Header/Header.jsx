@@ -74,7 +74,7 @@ const Header = () => {
         <li><Link to="/about">About</Link></li>
         <li><Link to="/products">Products</Link></li>
         <li><Link to="/promotions">Promotions</Link></li>        
-        <li><Cart /></li>
+        <li><Link to="/cart">cart</Link></li>
         <li><Link to="/enquire">Enquire</Link></li>
         <li><button onClick={handleLoginClick}>Login</button></li>
       </ul>
