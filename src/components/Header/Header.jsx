@@ -73,10 +73,10 @@ const Header = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/products">Products</Link></li>
-        <li><Link to="/promotions">Promotions</Link></li>
+        <li><Link to="/promotions">Promotions</Link></li>        
+        <li><Cart /></li>
         <li><Link to="/enquire">Enquire</Link></li>
         <li><button onClick={handleLoginClick}>Login</button></li>
-        <li><Cart /></li>
       </ul>
 
       {/* Login/Signup Modal */}

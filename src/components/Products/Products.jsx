@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, version } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Import Bootstrap JS
 import data from './Produts-api'; // Import your data array
@@ -7,6 +7,7 @@ import './Products.css'; // Import CSS for styling images
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
   const [selectedIndex, setSelectedIndex] = useState(0); // State for selected image index in the carousel
+  const [cart, setCart] = useState([]);
 
   // Function to open modal with the selected product
   const handleShowModal = (product) => {
@@ -31,6 +32,25 @@ const Products = () => {
       prevIndex === selectedProduct.gallery.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+   // function to add the seclected Item to the cart
+   const handleAddToCart = () => {
+    const newItem = {
+      version: selectedProduct.version,
+      price: selectedProduct.price,
+      space: selectedProduct.space,
+      desc: selectedProduct.desc,
+      variant: selectedProduct.variants,
+      image: selectedProduct.gallery[selectedIndex],
+    };
+    
+    //adding the item into the cart state
+    setCart((prevCart) => [...prevCart, newItem]);
+
+    console.log('cart', [...cart, newItem]);
+
+    alert('item added to cart')
+   }
 
   return (
     <div className="container">
@@ -133,13 +153,13 @@ const Products = () => {
                 >
                   Add to Cart
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleCloseModal}
                 >
                   Close
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
