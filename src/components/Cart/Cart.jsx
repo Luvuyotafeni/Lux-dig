@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Cart = () => {
+const Cart = ({cartItems, handleDeleteFromCart}) => {
   return (
-    <div>Cart</div>
+    <div className='container mt-4'>
+      <h2>Your Cart</h2>
+      {cartItems.length === 0 ? }
+
+    </div>
   )
 }
 

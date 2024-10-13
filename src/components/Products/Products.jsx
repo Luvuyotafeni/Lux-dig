@@ -1,8 +1,9 @@
-import React, { useState, version } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Import Bootstrap JS
 import data from './Produts-api'; // Import your data array
 import './Products.css'; // Import CSS for styling images
+import Cart from '../Cart/Cart'
 
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
@@ -50,6 +51,13 @@ const Products = () => {
     console.log('cart', [...cart, newItem]);
 
     alert('item added to cart')
+   }
+
+   // delete from cart function
+
+   const handleDeleteFromCart = (index) => {
+    const updatedCart = cart.filter((_, i) => i !== index);
+    setCart(updatedCart);
    }
 
   return (
@@ -165,6 +173,8 @@ const Products = () => {
           </div>
         </div>
       )}
+      {/* Render the Cart Component and pass the cart data */}
+      <Cart cartItems={cart} handleDeleteFromCart={handleDeleteFromCart} />
     </div>
   );
 };
