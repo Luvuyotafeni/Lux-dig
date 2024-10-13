@@ -149,7 +149,7 @@ const Products = () => {
               <div className="modal-footer">
                 <button
                   className="btn btn-dark"
-                  onClick={() => alert('Added to cart')}
+                  onClick={handleAddToCart}
                 >
                   Add to Cart
                 </button>
