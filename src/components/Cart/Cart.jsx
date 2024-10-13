@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Cart = ({ cartItems = [], onRemoveFromCart }) => {
+const Cart = ({ onRemoveFromCart }) => {
+  const [cartItems, setCartItems] = useState([]);
+
+  // Sync cart items from localStorage when the component loads or storage is updated
+  useEffect(() => {
+    const syncCart = () => {
+      const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+      setCartItems(storedCart);
+    };
+
+    // Sync cart on component mount
+    syncCart();
+
+    // Listen for changes to localStorage
+    window.addEventListener('storage', syncCart);
+
+    // Cleanup listener when component unmounts
+    return () => {
+      window.removeEventListener('storage', syncCart);
+    };
+  }, []);
+
   return (
     <div className="container mt-4">
       <h2>Shopping Cart</h2>
