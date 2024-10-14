@@ -45,7 +45,20 @@ const Header = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/users', { name, surname, phone, email, password })
+
+    //retrieving the cart from the local storage
+    const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    //collected the user information todata 
+    const data = {
+      name,
+      surname,
+      phone,
+      email,
+      password,
+      cart: localCart
+    }
+    axios.post('http://localhost:3001/users', data)
       .then((result) => {
         console.log(result);
         navigate('/');
