@@ -56,15 +56,6 @@ const Products = () => {
     alert('Item added to cart');
   };
   
-
-
-   // delete from cart function
-
-   const handleDeleteFromCart = (index) => {
-    const updatedCart = cart.filter((_, i) => i !== index);
-    setCart(updatedCart);
-   }
-
   return (
     <div className="container">
       <div className="row">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Cart = ({ onRemoveFromCart }) => {
+const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -32,6 +32,16 @@ const Cart = ({ onRemoveFromCart }) => {
     };
   }, []);
 
+
+  // Handle removing an item from the cart
+  const handleRemoveFromCart = (index) => {
+    const updatedCart = cartItems.filter((_, i) => i !== index); // Remove the selected item
+    setCartItems(updatedCart); // Update the cart state
+
+    // Update localStorage with the new cart
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
   return (
     <div className="container mt-4">
       <h2 className='text-center'>Shopping Cart</h2>
@@ -60,7 +70,9 @@ const Cart = ({ onRemoveFromCart }) => {
                   <td>{(item.space || []).join(', ')}</td>
                   <td>{(item.variant || []).join(', ')}</td>
                   <td>{item.desc}</td>
-                  <td><button className="btn btn-danger" onClick={() => onRemoveFromCart(index)}>Remove</button></td>
+                  <td><button className="btn btn-danger" onClick={() => handleRemoveFromCart(index)}>
+                      Remove
+                    </button></td>
                 </tr>
               ))}
             </tbody>
