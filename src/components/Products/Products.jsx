@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Import Bootstrap JS
 import data from './Produts-api'; // Import your data array
 import './Products.css'; // Import CSS for styling images
-import Cart from '../Cart/Cart'
 
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null); // State for selected product
@@ -167,20 +166,11 @@ const Products = () => {
                 >
                   Add to Cart
                 </button>
-                {/* <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={handleCloseModal}
-                >
-                  Close
-                </button> */}
               </div>
             </div>
           </div>
         </div>
       )}
-      {/* Render the Cart Component and pass the cart data */}
-      {/* <Cart cartItems={cart} onRemoveFromCart={handleDeleteFromCart} /> */}
     </div>
   );
 };
