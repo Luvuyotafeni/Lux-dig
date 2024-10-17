@@ -70,6 +70,10 @@ const Header = () => {
     axios.post('http://localhost:3001/users', data)
       .then((result) => {
         console.log(result);
+        
+        // If registration is successful, clear the cart from localStorage
+        localStorage.removeItem('cart');
+        
         navigate('/');
       })
       .catch(err => console.log(err));

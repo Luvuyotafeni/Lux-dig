@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
