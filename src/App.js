@@ -10,7 +10,7 @@ import Cart from './components/Cart/Cart'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Setting from './components/Settings/Setting';
 import Orders from './components/Orders/Orders';
-import Orders from './components/Personal_details/personal_details';
+import PersonalDetails from './components/Personal_details/personal_details';
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path='/settings' element={<Setting/>} />
         <Route path='orders' element={<Orders/>} />
-        <Route path='/personal-details' element={<personal_details/>} />
+        <Route path='/personal-details' element={<PersonalDetails/>} />
       </Routes>
     </Router>
   );

@@ -93,6 +93,9 @@ const Header = () => {
           localStorage.setItem('user', JSON.stringify(userData));
           setLoggedInUser(userData);
 
+          // Save cart data to localStorage
+          localStorage.setItem('cart', JSON.stringify(userData.cart || []));
+
           // Close the login modal
           setShowLogin(false);
           setShowSignIn(false);
@@ -105,14 +108,15 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // Clear user data from localStorage and state
+    // Clear user data and cart from localStorage and state
     localStorage.removeItem('user');
+    localStorage.removeItem('cart');  // Erase cart when user logs out
     setLoggedInUser(null);
     navigate('/');
   };
 
-   // Function to toggle the dropdown
-   const toggleDropdown = () => {
+  // Function to toggle the dropdown
+  const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
