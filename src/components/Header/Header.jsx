@@ -8,6 +8,7 @@ const Header = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null); // State to track logged-in user
+  const [dropdownOpen, setDropdownOpen] = useState(false); // State to toggle dropdown
 
   const navigate = useNavigate();
 
@@ -110,6 +111,11 @@ const Header = () => {
     navigate('/');
   };
 
+   // Function to toggle the dropdown
+   const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <nav className="navbar">
       <ul>
@@ -123,8 +129,17 @@ const Header = () => {
         {/* Check if user is logged in */}
         {loggedInUser ? (
           <>
-            <li>Welcome, {loggedInUser.name}</li>
-            <li><button onClick={handleLogout}>Logout</button></li>
+            <li className="dropdown" onClick={toggleDropdown}>
+              Welcome, {loggedInUser.name}
+              {dropdownOpen && (
+                <ul className="dropdown-menu">
+                  <li><Link to="/orders">Orders</Link></li>
+                  <li><Link to="/personal-details">Personal Details</Link></li>
+                  <li><Link to="/settings">Settings</Link></li>
+                  <li><button onClick={handleLogout}>Logout</button></li>
+                </ul>
+              )}
+            </li>
           </>
         ) : (
           <li><button onClick={handleLoginClick}>Login</button></li>
