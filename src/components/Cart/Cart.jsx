@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -34,14 +34,24 @@ const Cart = () => {
   }, []);
 
 
-  // Handle removing an item from the cart
-  const handleRemoveFromCart = (index) => {
+   // Function to remove an item from the cart
+   const handleRemoveFromCart = async (index, itemId) => {
     const updatedCart = cartItems.filter((_, i) => i !== index); // Remove the selected item
     setCartItems(updatedCart); // Update the cart state
 
     // Update localStorage with the new cart
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
+
+    // If the user is logged in, remove the item from the database
+    if (user && user._id) {
+        try {
+            await axios.delete(`http://localhost:3001/cart/${user._id}/${itemId}`);
+            console.log('Item removed from the database');
+        } catch (error) {
+            console.error('Error removing item from the database', error);
+        }
+    }
+};
 
   return (
     <div className="container mt-4">
