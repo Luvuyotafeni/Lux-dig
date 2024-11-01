@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Cart = () => {
+const Cart = ({ user }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -33,9 +33,8 @@ const Cart = () => {
     };
   }, []);
 
-
-   // Function to remove an item from the cart
-   const handleRemoveFromCart = async (index, itemId) => {
+  // Function to remove an item from the cart
+  const handleRemoveFromCart = async (index, itemId) => {
     const updatedCart = cartItems.filter((_, i) => i !== index); // Remove the selected item
     setCartItems(updatedCart); // Update the cart state
 
@@ -44,18 +43,18 @@ const Cart = () => {
 
     // If the user is logged in, remove the item from the database
     if (user && user._id) {
-        try {
-            await axios.delete(`http://localhost:3001/cart/${user._id}/${itemId}`);
-            console.log('Item removed from the database');
-        } catch (error) {
-            console.error('Error removing item from the database', error);
-        }
+      try {
+        await axios.delete(`http://localhost:3001/cart/${user._id}/${itemId}`);
+        console.log('Item removed from the database');
+      } catch (error) {
+        console.error('Error removing item from the database', error);
+      }
     }
-};
+  };
 
   return (
     <div className="container mt-4">
-      <h2 className='text-center'>Shopping Cart</h2>
+      <h2 className="text-center">Shopping Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
@@ -75,15 +74,22 @@ const Cart = () => {
             <tbody>
               {cartItems.map((item, index) => (
                 <tr key={index}>
-                  <td><img src={item.image} alt={item.version} style={{ width: '50px' }} /></td>
+                  <td>
+                    <img src={item.image} alt={item.version} style={{ width: '50px' }} />
+                  </td>
                   <td>{item.version}</td>
                   <td>R{item.price}</td>
                   <td>{(item.space || []).join(', ')}</td>
                   <td>{(item.variant || []).join(', ')}</td>
                   <td>{item.desc}</td>
-                  <td><button className="btn btn-danger" onClick={() => handleRemoveFromCart(index)}>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleRemoveFromCart(index, item._id)}
+                    >
                       Remove
-                    </button></td>
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
