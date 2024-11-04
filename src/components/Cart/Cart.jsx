@@ -7,10 +7,7 @@ const Cart = ({ user }) => {
 
   // Calculate total price whenever cartItems change
   useEffect(() => {
-    let total = 0;
-    cartItems.forEach(item => {
-      total += item.price;
-    });
+    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
     setTotalPrice(total);
   }, [cartItems]);
 
@@ -33,12 +30,12 @@ const Cart = ({ user }) => {
     };
   }, []);
 
-  // Function to remove an item from the cart
-  const handleRemoveFromCart = async (index, itemId) => {
-    const updatedCart = cartItems.filter((_, i) => i !== index); // Remove the selected item
+  // Function to remove an item from the cart and update localStorage
+  const handleRemoveFromCart = async (itemId) => {
+    const updatedCart = cartItems.filter(item => item._id !== itemId); // Filter out the selected item
     setCartItems(updatedCart); // Update the cart state
 
-    // Update localStorage with the new cart
+    // Update localStorage with the new cart array
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 
     // If the user is logged in, remove the item from the database
@@ -72,20 +69,18 @@ const Cart = ({ user }) => {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    <img src={item.image} alt={item.version} style={{ width: '50px' }} />
-                  </td>
+              {cartItems.map((item) => (
+                <tr key={item._id}>
+                  <td><img src={item.image} alt={item.version} style={{ width: '50px' }} /></td>
                   <td>{item.version}</td>
                   <td>R{item.price}</td>
                   <td>{(item.space || []).join(', ')}</td>
                   <td>{(item.variant || []).join(', ')}</td>
                   <td>{item.desc}</td>
                   <td>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleRemoveFromCart(index, item._id)}
+                    <button 
+                      className="btn btn-danger" 
+                      onClick={() => handleRemoveFromCart(item._id)}
                     >
                       Remove
                     </button>

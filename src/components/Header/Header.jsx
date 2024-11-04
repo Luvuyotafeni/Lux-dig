@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Header.css';
+import './Header.css'; // Make sure to create this CSS file for styling
 
 const Header = () => {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
-  const [showSignIn, setShowSignIn] = useState(false);
+  const [modalType, setModalType] = useState(null); // State to track which modal is open
   const [loggedInUser, setLoggedInUser] = useState(null); // State to track logged-in user
   const [dropdownOpen, setDropdownOpen] = useState(false); // State to toggle dropdown
 
@@ -31,94 +29,86 @@ const Header = () => {
     }
   }, []);
 
-  const handleLoginClick = () => {
-    setShowLogin(true);
-    setShowSignIn(true); // Opens login form
-  };
-
-  const handleCloseModal = () => {
-    setShowLogin(false);
-    setShowSignIn(false);
-    setShowSignUp(false);
+  const handleModalClose = () => {
+    setModalType(null);
   };
 
   const handleSignUpClick = () => {
-    setShowSignUp(true);
-    setShowSignIn(false);
+    setModalType('signup');
   };
 
-  const handleCloseSignUp = () => {
-    setShowSignUp(false);
-    setShowSignIn(true);
+  const handleLoginClick = () => {
+    setModalType('login');
   };
 
-  const handleSubmit = (e) => {
+  const handleDropdownToggle = () => {
+    setDropdownOpen((prev) => !prev);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Retrieve the cart from the local storage
     const localCart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Collect the user information to send as data
-    const data = {
-      name,
-      surname,
-      phone,
-      email,
-      password,
-      cart: localCart
-    };
+    const data = { name, surname, phone, email, password, cart: localCart };
 
-    axios.post('http://localhost:3001/users', data)
-      .then((result) => {
-        console.log(result);
-        
-        // If registration is successful, clear the cart from localStorage
-        localStorage.removeItem('cart');
-        
-        navigate('/');
-      })
-      .catch(err => console.log(err));
+    try {
+      const result = await axios.post('http://localhost:3001/users', data);
+      console.log(result);
+      localStorage.removeItem('cart');
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const logInSubmit = (e) => {
+  const logInSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/login', { email: loginEmail, password: loginPassword })
-      .then((response) => {
-        console.log('Login successful', response);
-
-        if (response.data.message === "Login successful") {
-          const userData = response.data.user;
-
-          // Save user data to localStorage and set it to state
-          localStorage.setItem('user', JSON.stringify(userData));
-          setLoggedInUser(userData);
-
-          // Save cart data to localStorage
-          localStorage.setItem('cart', JSON.stringify(userData.cart || []));
-
-          // Close the login modal
-          setShowLogin(false);
-          setShowSignIn(false);
-          navigate('/');
-        }
-      })
-      .catch((error) => {
-        console.error('Login failed', error);
+    try {
+      const response = await axios.post('http://localhost:3001/login', {
+        email: loginEmail,
+        password: loginPassword,
       });
+      console.log('Login successful', response);
+      if (response.data.message === "Login successful") {
+        const userData = response.data.user;
+        localStorage.setItem('user', JSON.stringify(userData));
+        setLoggedInUser(userData);
+        localStorage.setItem('cart', JSON.stringify(userData.cart || []));
+        handleModalClose();
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+    }
   };
 
-  const handleLogout = () => {
-    // Clear user data and cart from localStorage and state
-    localStorage.removeItem('user');
-    localStorage.removeItem('cart');  // Erase cart when user logs out
-    setLoggedInUser(null);
-    navigate('/');
+  const handleLogout = async () => {
+    const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    if (loggedInUser && loggedInUser._id) {
+      try {
+        // Send the updated cart to the server
+        await axios.put(`http://localhost:3001/cart/${loggedInUser._id}`, { cart: currentCart });
+        console.log('Cart successfully submitted on logout');
+      } catch (error) {
+        console.error('Error submitting cart on logout:', error);
+      } finally {
+        // Clear local storage and logout user
+        localStorage.removeItem('user');
+        localStorage.removeItem('cart');
+        setLoggedInUser(null);
+        navigate('/');
+      }
+    } else {
+      // If user data is missing, just clear the local storage and logout
+      localStorage.removeItem('user');
+      localStorage.removeItem('cart');
+      setLoggedInUser(null);
+      navigate('/');
+    }
   };
-
-  // Function to toggle the dropdown
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
+  
+  
 
   return (
     <nav className="navbar">
@@ -126,102 +116,96 @@ const Header = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/products">Products</Link></li>
-        <li><Link to="/promotions">Promotions</Link></li>        
+        <li><Link to="/promotions">Promotions</Link></li>
         <li><Link to="/cart">Cart</Link></li>
         <li><Link to="/enquire">Enquire</Link></li>
 
-        {/* Check if user is logged in */}
         {loggedInUser ? (
-          <>
-            <li className="dropdown" onClick={toggleDropdown}>
-              Welcome, {loggedInUser.name}
-              {dropdownOpen && (
-                <ul className="dropdown-menu">
-                  <li><Link to="/orders">Orders</Link></li>
-                  <li><Link to="/personal-details">Personal Details</Link></li>
-                  <li><Link to="/settings">Settings</Link></li>
-                  <li><button onClick={handleLogout}>Logout</button></li>
-                </ul>
-              )}
-            </li>
-          </>
+          <li className="dropdown" onClick={handleDropdownToggle}>
+            Welcome, {loggedInUser.name}
+            {dropdownOpen && (
+              <ul className="dropdown-menu">
+                <li><Link to="/orders">Orders</Link></li>
+                <li><Link to="/personal-details">Personal Details</Link></li>
+                <li><Link to="/settings">Settings</Link></li>
+                <li><button onClick={handleLogout}>Logout</button></li>
+              </ul>
+            )}
+          </li>
         ) : (
           <li><button onClick={handleLoginClick}>Login</button></li>
         )}
       </ul>
 
-      {/* Login/Signup Modal */}
-      {showLogin && (
-        <>
-          {showSignIn && (
-            <div className="modal fade show" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-              <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Log In</h5>
-                    <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
+      {/* Login Modal */}
+      {modalType === 'login' && (
+        <div className="modal fade show" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Log In</h5>
+                <button type="button" className="btn-close" aria-label="Close" onClick={handleModalClose}></button>
+              </div>
+              <div className="modal-body">
+                <form onSubmit={logInSubmit}>
+                  <div className="form-group">
+                    <label>Email address</label>
+                    <input type="email" className="form-control" placeholder="e.g. lux@gmail.com" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
                   </div>
-                  <div className="modal-body">
-                    <form onSubmit={logInSubmit}>
-                      <div className="form-group">
-                        <label>Email address</label>
-                        <input type="email" className="form-control" placeholder="e.g lux@gmail.com" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} />
-                      </div>
-                      <div className="form-group">
-                        <label>Enter Password</label>
-                        <input type="password" className="form-control" placeholder="Enter password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} />
-                      </div>
-                      <button type="submit" className="btn btn-primary btn-block">Log In</button>
-                    </form>
+                  <div className="form-group">
+                    <label>Enter Password</label>
+                    <input type="password" className="form-control" placeholder="Enter password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
                   </div>
-                  <div className="modal-footer">
-                    <p className="text-center">
-                      Don't have an account? <button type="button" className="btn btn-link" onClick={handleSignUpClick}>Sign Up</button>
-                    </p>
-                  </div>
-                </div>
+                  <button type="submit" className="btn btn-primary btn-block">Log In</button>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <p className="text-center">
+                  Don't have an account? <button type="button" className="btn btn-link" onClick={handleSignUpClick}>Sign Up</button>
+                </p>
               </div>
             </div>
-          )}
+          </div>
+        </div>
+      )}
 
-          {showSignUp && (
-            <div className="modal fade show" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-              <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Sign Up</h5>
-                    <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseSignUp}></button>
+      {/* Sign Up Modal */}
+      {modalType === 'signup' && (
+        <div className="modal fade show" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Sign Up</h5>
+                <button type="button" className="btn-close" aria-label="Close" onClick={handleModalClose}></button>
+              </div>
+              <div className="modal-body">
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group">
+                    <label>Name</label>
+                    <input type="text" className="form-control" placeholder="Enter name" onChange={(e) => setName(e.target.value)} required />
                   </div>
-                  <div className="modal-body">
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-group">
-                        <label>Name</label>
-                        <input type="text" className="form-control" placeholder="Enter name" onChange={(e) => setName(e.target.value)} />
-                      </div>
-                      <div className="form-group">
-                        <label>Surname</label>
-                        <input type="text" className="form-control" placeholder="Enter surname" onChange={(e) => setSurname(e.target.value)} />
-                      </div>
-                      <div className="form-group">
-                        <label>Phone</label>
-                        <input type="text" className="form-control" placeholder="Enter phone" onChange={(e) => setPhone(e.target.value)} />
-                      </div>
-                      <div className="form-group">
-                        <label>Email</label>
-                        <input type="email" className="form-control" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
-                      </div>
-                      <div className="form-group">
-                        <label>Create Password</label>
-                        <input type="password" className="form-control" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)} />
-                      </div>
-                      <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
-                    </form>
+                  <div className="form-group">
+                    <label>Surname</label>
+                    <input type="text" className="form-control" placeholder="Enter surname" onChange={(e) => setSurname(e.target.value)} required />
                   </div>
-                </div>
+                  <div className="form-group">
+                    <label>Phone</label>
+                    <input type="text" className="form-control" placeholder="Enter phone" onChange={(e) => setPhone(e.target.value)} required />
+                  </div>
+                  <div className="form-group">
+                    <label>Email</label>
+                    <input type="email" className="form-control" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} required />
+                  </div>
+                  <div className="form-group">
+                    <label>Create Password</label>
+                    <input type="password" className="form-control" placeholder="Create password" onChange={(e) => setPassword(e.target.value)} required />
+                  </div>
+                  <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                </form>
               </div>
             </div>
-          )}
-        </>
+          </div>
+        </div>
       )}
     </nav>
   );
