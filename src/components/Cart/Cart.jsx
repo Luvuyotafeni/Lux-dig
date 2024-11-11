@@ -32,22 +32,31 @@ const Cart = ({ user }) => {
 
   // Function to remove an item from the cart and update localStorage
   const handleRemoveFromCart = async (itemId) => {
-    const updatedCart = cartItems.filter(item => item._id !== itemId); // Filter out the selected item
-    setCartItems(updatedCart); // Update the cart state
-
-    // Update localStorage with the new cart array
+    // Update local cart state first
+    const updatedCart = cartItems.filter((item) => item._id !== itemId);
+    setCartItems(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-    // If the user is logged in, remove the item from the database
+  
+    // If the user is logged in, attempt to update the cart on the database
     if (user && user._id) {
       try {
-        await axios.delete(`http://localhost:3001/cart/${user._id}/${itemId}`);
-        console.log('Item removed from the database');
+        const response = await axios.put(`http://localhost:3001/cart/${user._id}/remove-item/${itemId}`);
+        
+        // Check for a successful response and alert the user
+        if (response.status === 200) {
+          alert("Item successfully removed from the cart!");
+        } else {
+          alert("Could not update the cart. Please try again.");
+        }
       } catch (error) {
         console.error('Error removing item from the database', error);
+        alert("Could not update the cart. Please try again.");
       }
     }
   };
+  
+  
+  
 
   return (
     <div className="container mt-4">
@@ -69,24 +78,24 @@ const Cart = ({ user }) => {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item) => (
-                <tr key={item._id}>
-                  <td><img src={item.image} alt={item.version} style={{ width: '50px' }} /></td>
-                  <td>{item.version}</td>
-                  <td>R{item.price}</td>
-                  <td>{(item.space || []).join(', ')}</td>
-                  <td>{(item.variant || []).join(', ')}</td>
-                  <td>{item.desc}</td>
-                  <td>
-                    <button 
-                      className="btn btn-danger" 
-                      onClick={() => handleRemoveFromCart(item._id)}
-                    >
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
+            {cartItems.map((item) => (
+              <tr key={item._id}>
+                <td><img src={item.image} alt={item.version} style={{ width: '50px' }} /></td>
+                <td>{item.version}</td>
+                <td>R{item.price}</td>
+                <td>{(item.space || []).join(', ')}</td>
+                <td>{(item.variant || []).join(', ')}</td>
+                <td>{item.desc}</td>
+                <td>
+                  <button 
+                    className="btn btn-danger" 
+                    onClick={() => handleRemoveFromCart(item._id)} // Pass _id instead of index
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
             </tbody>
           </table>
           <div className="text-end">
