@@ -88,7 +88,7 @@ const Header = () => {
     if (loggedInUser && loggedInUser._id) {
       try {
         // Send the updated cart to the server
-        await axios.put(`http://localhost:3001/cart/${loggedInUser._id}`, { cart: currentCart });
+        await axios.put('http://localhost:3001/cart/${loggedInUser._id}, { cart: currentCart }');
         console.log('Cart successfully submitted on logout');
       } catch (error) {
         console.error('Error submitting cart on logout:', error);
