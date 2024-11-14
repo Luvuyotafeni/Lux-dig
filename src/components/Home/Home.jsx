@@ -11,7 +11,21 @@ import hp from './Assets/hp logo.png'
 import { Carousel } from 'react-bootstrap'
 import './Home.css'
 
+import { useNavigate } from 'react-router-dom'
+
+
 const Home = () => {
+
+const navigate = useNavigate();
+
+const shopAll = () => {
+  navigate('/products')
+}
+
+const handleContact = () => {
+  navigate('/enquire')
+}
+
   return (
     <div>
       <section>
@@ -23,8 +37,8 @@ const Home = () => {
                 <h5>Shop with us, shop digitally</h5>
               </div>
               <div className='buttons'>
-                <button className='btn btn-dark'>Shop all</button>
-                <button className='btn btn-secondary ml-2'>Contact Us</button>
+                <button className='btn btn-dark' onClick={shopAll}>Shop all</button>
+                <button className='btn btn-secondary ml-2' onClick={handleContact}>Contact Us</button>
               </div>
             </div>
             <div className='col-md-6 imgHome text-center'>
