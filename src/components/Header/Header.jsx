@@ -69,18 +69,26 @@ const Header = () => {
         password: loginPassword,
       });
       console.log('Login successful', response);
+  
       if (response.data.message === "Login successful") {
         const userData = response.data.user;
+        const cartItems = response.data.cart || []; // This is the cart data sent from the server
+  
+        // Store user and cart data in localStorage
         localStorage.setItem('user', JSON.stringify(userData));
+       
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        // Update logged-in user state
         setLoggedInUser(userData);
-        localStorage.setItem('cart', JSON.stringify(userData.cart || []));
-        handleModalClose();
-        navigate('/');
+  
+        handleModalClose(); // Close the login modal
+        navigate('/'); // Navigate to homepage or other desired page
       }
     } catch (error) {
       console.error('Login failed', error);
     }
   };
+  
 
   const handleLogout = async () => {
     const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
